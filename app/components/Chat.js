@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useRef } from "react";
 import StateContext from "../StateContext";
 import DispatchContext from "../DispatchContext";
 import { useImmer } from "use-immer";
+import { Link } from "react-router-dom";
 import io from "socket.io-client";
 const socket = io("http://localhost:8080");
 
@@ -21,7 +22,7 @@ function Chat() {
   }, [appState.isChatOpen]);
 
   useEffect(() => {
-    socket.on("charFromServer", message => {
+    socket.on("chatFromServer", message => {
       setState(draft => {
         draft.chatMessages.push(message);
       });
@@ -41,7 +42,7 @@ function Chat() {
     socket.emit("chatFromBrowser", { message: state.fieldValue, token: appState.user.token });
 
     setState(draft => {
-      // add message to state collection of msgs
+      // Add message to state collection of messages
       draft.chatMessages.push({ message: draft.fieldValue, username: appState.user.username, avatar: appState.user.avatar });
       draft.fieldValue = "";
     });
@@ -70,14 +71,14 @@ function Chat() {
 
           return (
             <div key={index} className="chat-other">
-              <a href="#">
+              <Link to={`/profile/${message.username}`}>
                 <img className="avatar-tiny" src={message.avatar} />
-              </a>
+              </Link>
               <div className="chat-message">
                 <div className="chat-message-inner">
-                  <a href="#">
-                    <strong>{message.username}:</strong>
-                  </a>
+                  <Link to={`/profile/${message.username}`}>
+                    <strong>{message.username}: </strong>
+                  </Link>
                   {message.message}
                 </div>
               </div>

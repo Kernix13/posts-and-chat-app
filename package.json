@@ -15,7 +15,7 @@
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
-    "axios": "^0.26.1",
+    "axios": "^0.28.0",
     "babel-loader": "^8.2.4",
     "clean-webpack-plugin": "^4.0.0",
     "dotenv-webpack": "^7.1.0",
